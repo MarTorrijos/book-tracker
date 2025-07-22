@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.14'
+
+    // Logging dependencies
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
+
+    // Lombok dependencies
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    // JUnit Jupiter dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // Mockito dependencies
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.0'
+    testImplementation 'org.mockito:mockito-core:5.14.0'
+
+    // Lombok dependencies for tests
+    testCompileOnly("org.projectlombok:lombok:1.18.38")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+configurations {
+    mockitoAgent
+}
+
+dependencies {
+    mockitoAgent('org.mockito:mockito-core:5.14.0') {
+        transitive = false
+    }
+}
+
+tasks {
+    test {
+        jvmArgs += "-Xshare:off"
+        jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
