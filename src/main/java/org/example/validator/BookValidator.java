@@ -4,6 +4,6 @@ import org.example.entities.Book;
 
 public interface BookValidator {
 
-    void validate(Book book);
+    ValidationResult validate(Book book);
 
 }

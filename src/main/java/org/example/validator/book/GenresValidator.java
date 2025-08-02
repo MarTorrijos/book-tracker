@@ -1,20 +1,24 @@
 package org.example.validator.book;
 
 import org.example.entities.Book;
-import org.example.exceptions.InvalidBookException;
 import org.example.validator.BookValidator;
+import org.example.validator.ValidationResult;
 
 public class GenresValidator implements BookValidator {
 
     @Override
-    public void validate(Book book) {
+    public ValidationResult validate(Book book) {
+        ValidationResult result = new ValidationResult();
+
         if (book.getGenres() != null) {
             for (String genre : book.getGenres()) {
                 if (genre.length() > 50) {
-                    throw new InvalidBookException("Genre '" + genre + "' is too long");
+                    result.addError("Genre '" + genre + "' is too long");
                 }
             }
         }
+
+        return result;
     }
 
 }

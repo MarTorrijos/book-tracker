@@ -1,20 +1,22 @@
 package org.example.validator.author;
 
 import org.example.entities.Book;
-import org.example.exceptions.InvalidAuthorException;
-import org.example.exceptions.InvalidBookException;
 import org.example.validator.BookValidator;
+import org.example.validator.ValidationResult;
 
 public class AuthorValidator implements BookValidator {
 
     @Override
-    public void validate(Book book) {
+    public ValidationResult validate(Book book) {
+        ValidationResult result = new ValidationResult();
+
         if (book.getAuthor() == null) {
-            throw new InvalidAuthorException("Book author is required");
+            result.addError("An author is required");
+        } else if (book.getAuthor().getName().length() > 300) {
+            result.addError("Author name too long. Needs to be less than 300 characters");
         }
-        if (book.getAuthor().getName().length() > 300) {
-            throw new InvalidBookException("Book author can't exceed 300 characters");
-        }
+
+        return result;
     }
 
 }
