@@ -1,26 +1,21 @@
 package org.example.validators.implementations.book;
 
-import org.example.entities.Book;
-import org.example.validators.BookValidator;
-import org.example.validators.result.ValidationResult;
+import org.example.exceptions.FieldValidationException;
+import org.example.validators.FieldValidator;
 
 import static org.example.validators.messages.BookErrorMessages.GENRE_TOO_LONG;
 
-public class GenresValidator implements BookValidator {
+public class GenresValidator implements FieldValidator<String[]> {
 
     @Override
-    public ValidationResult validate(Book book) {
-        ValidationResult result = new ValidationResult();
-
-        if (book.getGenres() != null) {
-            for (String genre : book.getGenres()) {
+    public void validate(String[] genres) {
+        if (genres != null) {
+            for (String genre : genres) {
                 if (genre.length() > 50) {
-                    result.addError(GENRE_TOO_LONG);
+                    throw new FieldValidationException(GENRE_TOO_LONG);
                 }
             }
         }
-
-        return result;
     }
 
 }

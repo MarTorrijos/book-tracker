@@ -1,22 +1,17 @@
 package org.example.validators.implementations.book;
 
-import org.example.entities.Book;
-import org.example.validators.BookValidator;
-import org.example.validators.result.ValidationResult;
+import org.example.exceptions.FieldValidationException;
+import org.example.validators.FieldValidator;
 
 import static org.example.validators.messages.BookErrorMessages.PAGES_NOT_POSITIVE;
 
-public class PagesValidator implements BookValidator {
+public class PagesValidator implements FieldValidator<Integer> {
 
     @Override
-    public ValidationResult validate(Book book) {
-        ValidationResult result = new ValidationResult();
-
-        if (book.getPages() != null && book.getPages() <= 0) {
-            result.addError(PAGES_NOT_POSITIVE);
+    public void validate(Integer pages) {
+        if (pages != null && pages <= 0) {
+            throw new FieldValidationException(PAGES_NOT_POSITIVE);
         }
-
-        return result;
     }
 
 }

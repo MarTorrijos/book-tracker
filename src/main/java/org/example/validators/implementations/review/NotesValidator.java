@@ -1,22 +1,17 @@
 package org.example.validators.implementations.review;
 
-import org.example.entities.Book;
-import org.example.validators.BookValidator;
-import org.example.validators.result.ValidationResult;
+import org.example.exceptions.FieldValidationException;
+import org.example.validators.FieldValidator;
 
 import static org.example.validators.messages.ReviewErrorMessages.NOTES_TOO_LONG;
 
-public class NotesValidator implements BookValidator {
+public class NotesValidator implements FieldValidator<String> {
 
     @Override
-    public ValidationResult validate(Book book) {
-        ValidationResult result = new ValidationResult();
-
-        if (book.getReview().getNotes().length() > 1000) {
-            result.addError(NOTES_TOO_LONG);
+    public void validate(String notes) {
+        if (notes.length() > 1000) {
+            throw new FieldValidationException(NOTES_TOO_LONG);
         }
-
-        return result;
     }
 
 }

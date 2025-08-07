@@ -1,25 +1,19 @@
 package org.example.validators.implementations.author;
 
-import org.example.entities.Book;
-import org.example.validators.BookValidator;
-import org.example.validators.result.ValidationResult;
+import org.example.exceptions.FieldValidationException;
+import org.example.validators.FieldValidator;
 
-import static org.example.validators.messages.AuthorErrorMessages.AUTHOR_REQUIRED;
-import static org.example.validators.messages.AuthorErrorMessages.AUTHOR_TOO_LONG;
+import static org.example.validators.messages.AuthorErrorMessages.*;
 
-public class AuthorValidator implements BookValidator {
+public class AuthorValidator implements FieldValidator<String> {
 
     @Override
-    public ValidationResult validate(Book book) {
-        ValidationResult result = new ValidationResult();
-
-        if (book.getAuthor() == null) {
-            result.addError(AUTHOR_REQUIRED);
-        } else if (book.getAuthor().getName().length() > 300) {
-            result.addError(AUTHOR_TOO_LONG);
+    public void validate(String name) {
+        if (name == null) {
+            throw new FieldValidationException(AUTHOR_NAME_REQUIRED);
+        } else if (name.length() > 300) {
+            throw new FieldValidationException(AUTHOR_NAME_TOO_LONG);
         }
-
-        return result;
     }
 
 }
