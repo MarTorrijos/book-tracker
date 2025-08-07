@@ -1,8 +1,10 @@
-package org.example.validator.book;
+package org.example.validators.implementations.book;
 
 import org.example.entities.Book;
-import org.example.validator.BookValidator;
-import org.example.validator.ValidationResult;
+import org.example.validators.BookValidator;
+import org.example.validators.result.ValidationResult;
+
+import static org.example.validators.messages.BookErrorMessages.PAGES_NOT_POSITIVE;
 
 public class PagesValidator implements BookValidator {
 
@@ -11,7 +13,7 @@ public class PagesValidator implements BookValidator {
         ValidationResult result = new ValidationResult();
 
         if (book.getPages() != null && book.getPages() <= 0) {
-            result.addError("Pages must be a positive number");
+            result.addError(PAGES_NOT_POSITIVE);
         }
 
         return result;
