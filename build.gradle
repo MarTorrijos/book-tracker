@@ -16,7 +16,9 @@ dependencies {
 
     // Logging dependencies
     implementation platform('org.apache.logging.log4j:log4j-bom:2.24.1')
-    implementation 'org.apache.logging.log4j:log4j-api:${log4j-api.version}'
+    implementation 'org.apache.logging.log4j:log4j-api'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.0'
 
     // Jackson
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
