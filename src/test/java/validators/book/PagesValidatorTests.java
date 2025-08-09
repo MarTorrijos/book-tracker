@@ -18,7 +18,7 @@ public class PagesValidatorTests {
     }
 
     @Test
-    void correctPageCount() {
+    void validPageCount() {
         int pages = 100;
         assertDoesNotThrow(() -> validator.validate(pages));
     }

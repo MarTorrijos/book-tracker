@@ -22,7 +22,7 @@ public class GenresValidatorTests {
     }
 
     @Test
-    void correctGenres() {
+    void validGenres() {
         String[] genres = {"Sci-fi", "Fantasy"};
         assertDoesNotThrow(() -> validator.validate(genres));
     }
