@@ -9,7 +9,7 @@ public class NotesValidator implements FieldValidator<String> {
 
     @Override
     public void validate(String notes) {
-        if (notes.length() > 1000) {
+        if (notes != null && notes.length() > 1000) {
             throw new FieldValidationException(NOTES_TOO_LONG);
         }
     }
