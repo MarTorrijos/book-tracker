@@ -17,7 +17,7 @@ public class AuthorValidatorTests {
     }
 
     @Test
-    void correctAuthor() {
+    void validAuthor() {
         String name = "Frank Herbert";
         assertDoesNotThrow(() -> validator.validate(name));
     }
