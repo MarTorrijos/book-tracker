@@ -13,7 +13,7 @@ import lombok.*;
 public class Review {
 
     private int readIn;
-    private int rating;
+    private float rating;
     private String notes;
     private boolean reReadable;
 
