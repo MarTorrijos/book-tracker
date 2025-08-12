@@ -1,19 +1,20 @@
-package org.example.repository;
+package org.example.dao.book;
 
 import org.bson.types.ObjectId;
 import org.example.entities.Book;
 
 import java.util.List;
 
-public interface BookRepository {
+public interface BookDao {
 
-    void edit(ObjectId id, Book updatedBook);
+    void insert(Book book);
+    void update(ObjectId id, Book book);
     void delete(ObjectId id);
-    void save(Book book);
 
     List<Book> findAll();
     Book findById(ObjectId id);
     Book findByTitle(String title);
     List<Book> findByAuthor(String author);
+    boolean existsByTitle(String title);
 
 }
