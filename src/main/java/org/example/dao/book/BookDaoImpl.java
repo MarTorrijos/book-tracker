@@ -43,7 +43,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<Book> findAllBooks() {
         return collection.find()
                 .into(new java.util.ArrayList<>())
                 .stream()
@@ -52,25 +52,25 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book findById(ObjectId id) {
+    public Book findBookById(ObjectId id) {
         Document doc = collection.find(eq("_id", id)).first();
         return doc != null ? mapper.convertValue(doc, Book.class) : null;
     }
 
     @Override
-    public Book findByTitle(String title) {
+    public Book findBookByTitle(String title) {
         Document doc = collection.find(eq("title", title)).first();
         return doc != null ? mapper.convertValue(doc, Book.class) : null;
     }
 
     @Override
-    public List<Book> findByAuthor(String author) {
+    public List<Book> findBookByAuthor(String author) {
         List<Document> docs = collection.find(eq("author", author)).into(new java.util.ArrayList<>());
         return docs.stream().map(d -> mapper.convertValue(d, Book.class)).toList();
     }
 
     @Override
-    public boolean existsByTitle(String title) {
+    public boolean bookExistsByTitle(String title) {
         return collection.find(eq("title", title)).first() != null;
     }
 
