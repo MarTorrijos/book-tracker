@@ -1,4 +1,4 @@
-package org.example.service.book;
+package org.example.cli;
 
 public final class BookMessages {
 
@@ -10,10 +10,10 @@ public final class BookMessages {
             "Book saved";
 
     public static final String SAVE_FAIL_MSG =
-            "Failed to save book";
+            "Failed to insert book";
 
     public static final String SAVE_FAIL_DUPLICATED_TITLE_MSG =
-            "Failed to save book. Title already exists";
+            "Failed to insert book. Title already exists";
 
     public static final String FIND_FAIL_MSG =
             "Book not found";
