@@ -11,10 +11,10 @@ public interface BookDao {
     void update(ObjectId id, Book book);
     void delete(ObjectId id);
 
-    List<Book> findAll();
-    Book findById(ObjectId id);
-    Book findByTitle(String title);
-    List<Book> findByAuthor(String author);
-    boolean existsByTitle(String title);
+    List<Book> findAllBooks();
+    Book findBookById(ObjectId id);
+    Book findBookByTitle(String title);
+    List<Book> findBookByAuthor(String author);
+    boolean bookExistsByTitle(String title);
 
 }
