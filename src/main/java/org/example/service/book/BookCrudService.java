@@ -41,7 +41,7 @@ public class BookCrudService {
     public void update(ObjectId id, Book updatedBook) {
         if (bookDao.findBookById(id) == null) {
             logger.warn(UPDATE_FAIL_LOG, updatedBook.getTitle());
-            throw new BookNotFoundException("Book not found");
+            throw new BookNotFoundException("Book not found with ID: " + id);
         }
         bookDao.update(id, updatedBook);
         logger.info(UPDATE_SUCCESS_LOG, updatedBook.getTitle());
@@ -50,7 +50,7 @@ public class BookCrudService {
     public void delete(ObjectId id) {
         if (bookDao.findBookById(id) == null) {
             logger.warn(DELETE_FAIL_LOG, id.toHexString());
-            throw new BookNotFoundException("Book not found");
+            throw new BookNotFoundException("Book not found with ID: " + id);
         }
         bookDao.delete(id);
         logger.info(DELETE_SUCCESS_LOG, id.toHexString());
