@@ -28,12 +28,11 @@ public class BookCrudService {
             throw new IllegalArgumentException("Book with that title already exists.");
         }
 
-        Author existingAuthor = authorDao.findByName(book.getAuthor().getName());
-        if (existingAuthor == null) {
-            existingAuthor = authorDao.insert(book.getAuthor());
-            logger.info(SAVE_SUCCESS_LOG, book.getTitle());
+        Author author = authorDao.findByName(book.getAuthor().getName());
+        if (author == null) {
+            author = authorDao.insert(book.getAuthor());
         }
-        book.setAuthor(existingAuthor);
+        book.setAuthor(author);
 
         bookDao.insert(book);
         logger.info(SAVE_SUCCESS_LOG, book.getTitle());
