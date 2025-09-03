@@ -34,21 +34,21 @@ public class BookQueryService {
 
         if (book == null) {
             logger.warn(FIND_BY_ID_FAIL_LOG, id.toHexString());
-            throw new BookNotFoundException("Book not found");
+            throw new BookNotFoundException("Book not found with ID: " + id);
         }
+
         logger.info(FIND_BY_ID_SUCCESS_LOG, id.toHexString());
         return book;
     }
-
-    // TODO: findById !!!
 
     public Book findByTitle(String title) {
         Book book = bookDao.findBookByTitle(title);
 
         if (book == null) {
             logger.warn(FIND_BY_TITLE_FAIL_LOG, title);
-            throw new BookNotFoundException("Book not found");
+            throw new BookNotFoundException("Book not found with title: " + title);
         }
+
         logger.info(FIND_BY_TITLE_SUCCESS_LOG, title);
         return book;
     }
@@ -58,9 +58,10 @@ public class BookQueryService {
 
         if (books.isEmpty()) {
             logger.warn(FIND_BY_AUTHOR_FAIL, author);
-            throw new BookNotFoundException("No books found for that author");
+        } else {
+            logger.info(FIND_BY_AUTHOR_SUCCESS, author);
         }
-        logger.info(FIND_BY_AUTHOR_SUCCESS, author);
+
         return books;
     }
 
