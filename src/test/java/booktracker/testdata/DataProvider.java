@@ -5,22 +5,28 @@ import booktracker.entities.Book;
 import org.bson.types.ObjectId;
 
 import java.time.Year;
+import java.util.List;
 
 public class DataProvider {
 
     private static final int CURRENT_YEAR = Year.now().getValue();
+    private static final String DEFAULT_AUTHOR_NAME = "Frank Herbert";
+    private static final String LONG_AUTHOR_NAME = "A".repeat(301);
+    private static final String DEFAULT_BOOK_TITLE = "Dune";
+    private static final String LONG_TITLE = "A".repeat(201);
+    private static final int MAX_PAGES = 2000;
 
     // Author
 
     public static Author validAuthor() {
         Author author = new Author();
-        author.setName("Frank Herbert");
+        author.setName(DEFAULT_AUTHOR_NAME);
         return author;
     }
 
     public static Author authorNameTooLong() {
         Author author = new Author();
-        author.setName("A".repeat(301));
+        author.setName(LONG_AUTHOR_NAME);
         return author;
     }
 
@@ -29,7 +35,7 @@ public class DataProvider {
     public static Book validBook() {
         Book book = new Book();
         book.setId(new ObjectId());
-        book.setTitle("Dune");
+        book.setTitle(DEFAULT_BOOK_TITLE);
         book.setAuthor(validAuthor());
         return book;
     }
@@ -37,7 +43,7 @@ public class DataProvider {
     public static Book bookWithNoAuthor() {
         Book book = new Book();
         book.setId(new ObjectId());
-        book.setTitle("Dune");
+        book.setTitle(DEFAULT_BOOK_TITLE);
         return book;
     }
 
@@ -51,9 +57,29 @@ public class DataProvider {
 
     public static Book duplicatedBook() {
         Book book = new Book();
-        book.setTitle("Dune");
+        book.setTitle(DEFAULT_BOOK_TITLE);
         book.setAuthor(validAuthor());
         return book;
+    }
+
+    public static List<Book> bookListMock() {
+        return List.of(
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("A Wizard of Earthsea")
+                        .author(Author.builder().name("Ursula K. Le Guin").build())
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("The Left Hand of Darkness")
+                        .author(Author.builder().name("Ursula K. Le Guin").build())
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("The Dispossessed")
+                        .author(Author.builder().name("Ursula K. Le Guin").build())
+                        .build()
+        );
     }
 
     // Genres
@@ -63,11 +89,11 @@ public class DataProvider {
     }
 
     public static String[] genreTooLong() {
-        return new String[]{"A".repeat(51)};
+        return new String[]{LONG_TITLE};
     }
 
     public static String[] oneGenreTooLong() {
-        return new String[]{"Sci-fi", "Fantasy", "A".repeat(51)};
+        return new String[]{"Sci-fi", "Fantasy", LONG_TITLE};
     }
 
     // Pages
@@ -81,7 +107,7 @@ public class DataProvider {
     }
 
     public static int pageCountTooHigh() {
-        return 2001;
+        return MAX_PAGES + 1;
     }
 
     // Published in
@@ -97,7 +123,7 @@ public class DataProvider {
     // Title
 
     public static String titleTooLong() {
-        return "A".repeat(201);
+        return LONG_TITLE;
     }
 
     // Other
