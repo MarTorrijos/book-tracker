@@ -1,8 +1,8 @@
 package booktracker.service;
 
+import booktracker.service.author.AuthorService;
 import booktracker.testdata.DataProvider;
 import org.bson.types.ObjectId;
-import booktracker.dao.author.AuthorDao;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Author;
 import booktracker.entities.Book;
@@ -24,7 +24,7 @@ public class BookCrudServiceTest {
     @Mock
     private BookDao bookDaoMock;
     @Mock
-    private AuthorDao authorDaoMock;
+    private AuthorService authorServiceMock;
     @InjectMocks
     private BookCrudService service;
 
@@ -47,6 +47,7 @@ public class BookCrudServiceTest {
 
         verify(bookDaoMock).bookExistsByTitle("Dune");
         verify(bookDaoMock).insert(book);
+        verify(authorServiceMock).save(author);
     }
 
     @Test
@@ -59,6 +60,11 @@ public class BookCrudServiceTest {
         when(bookDaoMock.bookExistsByTitle("Dune")).thenReturn(true);
 
         assertThrows(IllegalArgumentException.class, () -> service.save(duplicatedBook));
+    }
+
+    @Test
+    void saveNoAuthor_Fail() {
+        assertThrows(NullPointerException.class, () -> service.save(DataProvider.bookWithNoAuthor()));
     }
 
     @Test
