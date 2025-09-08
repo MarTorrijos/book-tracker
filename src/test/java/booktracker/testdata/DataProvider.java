@@ -34,6 +34,13 @@ public class DataProvider {
         return book;
     }
 
+    public static Book bookWithNoAuthor() {
+        Book book = new Book();
+        book.setId(new ObjectId());
+        book.setTitle("Dune");
+        return book;
+    }
+
     public static Book updatedBook(ObjectId id) {
         Book book = new Book();
         book.setId(id);
