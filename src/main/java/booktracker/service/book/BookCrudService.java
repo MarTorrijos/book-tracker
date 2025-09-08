@@ -1,9 +1,9 @@
 package booktracker.service.book;
 
+import booktracker.service.author.AuthorService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
-import booktracker.dao.author.AuthorDao;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Author;
 import booktracker.entities.Book;
@@ -14,12 +14,12 @@ import static booktracker.log.BookLogMessages.*;
 public class BookCrudService {
 
     private final BookDao bookDao;
-    private final AuthorDao authorDao;
+    private final AuthorService authorService;
     private static final Logger logger = LogManager.getLogger(BookCrudService.class.getName());
 
-    public BookCrudService(BookDao bookDao, AuthorDao authorDao) {
+    public BookCrudService(BookDao bookDao, AuthorService authorService) {
         this.bookDao = bookDao;
-        this.authorDao = authorDao;
+        this.authorService = authorService;
     }
 
     public void save(Book book) {
@@ -28,9 +28,9 @@ public class BookCrudService {
             throw new IllegalArgumentException("Book with that title already exists.");
         }
 
-        Author author = authorDao.findByName(book.getAuthor().getName());
+        Author author = authorService.findByName(book.getAuthor().getName());
         if (author == null) {
-            author = authorDao.insert(book.getAuthor());
+            author = authorService.save(book.getAuthor());
         }
         book.setAuthor(author);
 
