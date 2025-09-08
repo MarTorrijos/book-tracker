@@ -1,6 +1,7 @@
 package booktracker.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
+import booktracker.testdata.DataProvider;
 import booktracker.validators.implementations.book.TitleValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TitleValidatorTests {
+public class TitleValidatorTest {
 
     private TitleValidator validator;
 
@@ -19,8 +20,7 @@ public class TitleValidatorTests {
 
     @Test
     void validTitle() {
-        String title = "Dune";
-        assertDoesNotThrow(() -> validator.validate(title));
+        assertDoesNotThrow(() -> validator.validate(DataProvider.validBook().getTitle()));
     }
 
     @Test
@@ -30,14 +30,12 @@ public class TitleValidatorTests {
 
     @Test
     void emptyTitle() {
-        String title = "";
-        assertThrows(FieldValidationException.class, () -> validator.validate(title));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.emptyString()));
     }
 
     @Test
     void titleTooLong() {
-        String title = "A".repeat(201);
-        assertThrows(FieldValidationException.class, () -> validator.validate(title));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.titleTooLong()));
     }
 
 }

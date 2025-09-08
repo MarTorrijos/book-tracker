@@ -1,19 +1,17 @@
 package booktracker.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
+import booktracker.testdata.DataProvider;
 import booktracker.validators.implementations.book.PublishedInValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Year;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PublishedInValidatorTests {
+public class PublishedInValidatorTest {
 
     private PublishedInValidator validator;
-    private final int CURRENT_YEAR = Year.now().getValue();
 
     @BeforeEach
     void setUp() {
@@ -22,8 +20,7 @@ public class PublishedInValidatorTests {
 
     @Test
     void validPublishedIn() {
-        int year = 2025;
-        assertDoesNotThrow(() -> validator.validate(year));
+        assertDoesNotThrow(() -> validator.validate(DataProvider.validPublishedIn()));
     }
 
     @Test
@@ -33,14 +30,12 @@ public class PublishedInValidatorTests {
 
     @Test
     void negativePublishedIn() {
-        int year = -1;
-        assertThrows(FieldValidationException.class, () -> validator.validate(year));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.negativeNumber()));
     }
 
     @Test
     void futurePublishedIn() {
-        int year = CURRENT_YEAR + 1;
-        assertThrows(FieldValidationException.class, () -> validator.validate(year));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.futurePublishedIn()));
     }
 
 }

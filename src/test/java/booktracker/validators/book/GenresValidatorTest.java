@@ -1,8 +1,7 @@
 package booktracker.validators.book;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import booktracker.exceptions.FieldValidationException;
+import booktracker.testdata.DataProvider;
 import booktracker.validators.implementations.book.GenresValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,10 +10,9 @@ import org.junit.jupiter.api.Test;
 import static booktracker.validators.messages.BookErrorMessages.GENRE_TOO_LONG;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GenresValidatorTests {
+public class GenresValidatorTest {
 
     private GenresValidator validator;
-    private static final Logger logger = LogManager.getLogger();
 
     @BeforeEach
     void setUp() {
@@ -23,8 +21,7 @@ public class GenresValidatorTests {
 
     @Test
     void validGenres() {
-        String[] genres = {"Sci-fi", "Fantasy"};
-        assertDoesNotThrow(() -> validator.validate(genres));
+        assertDoesNotThrow(() -> validator.validate(DataProvider.validGenres()));
     }
 
     @Test
@@ -41,18 +38,16 @@ public class GenresValidatorTests {
     @Test
     @DisplayName("Should throw when genre exceeds 50 characters")
     void genreTooLong() {
-        String tooLongGenre = "A".repeat(51);
         assertThrows(FieldValidationException.class,
-                () -> validator.validate(new String[]{tooLongGenre}));
+                () -> validator.validate(DataProvider.genreTooLong()));
     }
 
     @Test
     @DisplayName("Should throw when one of the genres exceeds 50 characters")
     void multipleGenresOneTooLong() {
-        String[] genres = {"Sci-fi", "Fantasy", "A".repeat(51)};
         FieldValidationException exception = assertThrows(
                 FieldValidationException.class,
-                () -> validator.validate(genres));
+                () -> validator.validate(DataProvider.oneGenreTooLong()));
 
         assertTrue(exception.getMessage().startsWith(GENRE_TOO_LONG));
     }

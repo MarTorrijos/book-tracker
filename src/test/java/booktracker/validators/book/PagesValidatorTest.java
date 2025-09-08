@@ -1,6 +1,7 @@
 package booktracker.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
+import booktracker.testdata.DataProvider;
 import booktracker.validators.implementations.book.PagesValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PagesValidatorTests {
+public class PagesValidatorTest {
 
     private PagesValidator validator;
 
@@ -19,8 +20,7 @@ public class PagesValidatorTests {
 
     @Test
     void validPageCount() {
-        int pages = 100;
-        assertDoesNotThrow(() -> validator.validate(pages));
+        assertDoesNotThrow(() -> validator.validate(DataProvider.validPages()));
     }
 
     @Test
@@ -30,20 +30,17 @@ public class PagesValidatorTests {
 
     @Test
     void zeroPagesAllowed() {
-        int pages = 0;
-        assertDoesNotThrow(() -> validator.validate(pages));
+        assertDoesNotThrow(() -> validator.validate(DataProvider.zeroPages()));
     }
 
     @Test
     void negativePageCount() {
-        int pages = -1;
-        assertThrows(FieldValidationException.class, () -> validator.validate(pages));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.negativeNumber()));
     }
 
     @Test
     void pageCountTooHigh() {
-        int pages = 2001;
-        assertThrows(FieldValidationException.class, () -> validator.validate(pages));
+        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.pageCountTooHigh()));
     }
 
 }
