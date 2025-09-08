@@ -1,5 +1,6 @@
 package booktracker.service;
 
+import booktracker.testdata.DataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.author.AuthorDao;
 import booktracker.dao.book.BookDao;
@@ -33,15 +34,9 @@ public class BookCrudServiceTest {
 
     @BeforeEach
     void setUp() {
-        id = new ObjectId();
-
-        author = new Author();
-        author.setName("Frank Herbert");
-
-        book = new Book();
-        book.setId(id);
-        book.setTitle("Dune");
-        book.setAuthor(author);
+        book = DataProvider.validBook();
+        author = book.getAuthor();
+        id = book.getId();
     }
 
     @Test
@@ -56,9 +51,7 @@ public class BookCrudServiceTest {
 
     @Test
     void saveDuplicatedTitle_Fail() {
-        Book duplicatedBook = new Book();
-        duplicatedBook.setTitle("Dune");
-        duplicatedBook.setAuthor(author);
+        Book duplicatedBook = DataProvider.duplicatedBook();
 
         when(bookDaoMock.bookExistsByTitle("Dune")).thenReturn(false);
         service.save(book);
@@ -70,10 +63,7 @@ public class BookCrudServiceTest {
 
     @Test
     void update_Success() {
-        Book updatedBook = new Book();
-        updatedBook.setId(id);
-        updatedBook.setTitle("Dune Messiah");
-        updatedBook.setAuthor(author);
+        Book updatedBook = DataProvider.updatedBook(id);
         when(bookDaoMock.findBookById(id)).thenReturn(book);
 
         assertDoesNotThrow(() -> service.update(id, updatedBook));
@@ -84,9 +74,7 @@ public class BookCrudServiceTest {
 
     @Test
     void updateBookNotFound_Fail() {
-        Book updatedBook = new Book();
-        updatedBook.setTitle("Dune Messiah");
-        updatedBook.setAuthor(author);
+        Book updatedBook = DataProvider.updatedBook(id);
         when(bookDaoMock.findBookById(id)).thenReturn(null);
 
         assertThrows(BookNotFoundException.class, () -> service.update(id, updatedBook));
