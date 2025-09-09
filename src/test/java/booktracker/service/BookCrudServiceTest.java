@@ -25,45 +25,47 @@ public class BookCrudServiceTest {
     private BookDao bookDaoMock;
     @Mock
     private AuthorService authorServiceMock;
+
     @InjectMocks
     private BookCrudService service;
 
     private ObjectId id;
     private Book book;
+    private Book duplicatedBook;
     private Author author;
 
     @BeforeEach
     void setUp() {
         book = DataProvider.validBook();
+        duplicatedBook = DataProvider.duplicatedBook();
         author = book.getAuthor();
         id = book.getId();
     }
 
     @Test
     void save_Success() {
-        when(bookDaoMock.bookExistsByTitle("Dune")).thenReturn(false);
+        when(bookDaoMock.bookExistsByTitle(book.getTitle())).thenReturn(false);
 
         assertDoesNotThrow(() -> service.save(book));
-
-        verify(bookDaoMock).bookExistsByTitle("Dune");
+        verify(bookDaoMock).bookExistsByTitle(book.getTitle());
         verify(bookDaoMock).insert(book);
         verify(authorServiceMock).save(author);
     }
 
     @Test
-    void saveDuplicatedTitle_Fail() {
-        Book duplicatedBook = DataProvider.duplicatedBook();
-
-        when(bookDaoMock.bookExistsByTitle("Dune")).thenReturn(false);
+    void save_DuplicatedTitle_Fail() {
+        when(bookDaoMock.bookExistsByTitle(book.getTitle())).thenReturn(false);
         service.save(book);
         verify(bookDaoMock).insert(book);
-        when(bookDaoMock.bookExistsByTitle("Dune")).thenReturn(true);
 
+        when(bookDaoMock.bookExistsByTitle(duplicatedBook.getTitle())).thenReturn(true);
         assertThrows(IllegalArgumentException.class, () -> service.save(duplicatedBook));
+
+        verify(bookDaoMock, times(1)).insert(any());
     }
 
     @Test
-    void saveNoAuthor_Fail() {
+    void save_NoAuthor_Fail() {
         assertThrows(NullPointerException.class, () -> service.save(DataProvider.bookWithNoAuthor()));
     }
 
@@ -74,17 +76,16 @@ public class BookCrudServiceTest {
 
         assertDoesNotThrow(() -> service.update(id, updatedBook));
 
-        verify(bookDaoMock, times(1)).findBookById(id);
-        verify(bookDaoMock, times(1)).update(id, updatedBook);
+        verify(bookDaoMock).findBookById(id);
+        verify(bookDaoMock).update(id, updatedBook);
     }
 
     @Test
-    void updateBookNotFound_Fail() {
+    void update_BookNotFound_Fail() {
         Book updatedBook = DataProvider.updatedBook(id);
         when(bookDaoMock.findBookById(id)).thenReturn(null);
 
         assertThrows(BookNotFoundException.class, () -> service.update(id, updatedBook));
-
         verify(bookDaoMock, never()).update(any(), any());
     }
 
@@ -94,12 +95,12 @@ public class BookCrudServiceTest {
 
         assertDoesNotThrow(() -> service.delete(id));
 
-        verify(bookDaoMock, times(1)).findBookById(id);
-        verify(bookDaoMock, times(1)).delete(id);
+        verify(bookDaoMock).findBookById(id);
+        verify(bookDaoMock).delete(id);
     }
 
     @Test
-    void deleteBookNotFound_Fail() {
+    void delete_BookNotFound_Fail() {
         when(bookDaoMock.findBookById(id)).thenReturn(null);
 
         assertThrows(BookNotFoundException.class, () -> service.delete(id));
