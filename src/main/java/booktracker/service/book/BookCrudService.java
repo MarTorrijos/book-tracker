@@ -9,7 +9,12 @@ import booktracker.entities.Author;
 import booktracker.entities.Book;
 import booktracker.exceptions.BookNotFoundException;
 
-import static booktracker.log.BookLogMessages.*;
+import static booktracker.log.BookLogMessages.SAVE_FAIL_DUPLICATED_TITLE_LOG;
+import static booktracker.log.BookLogMessages.SAVE_SUCCESS_LOG;
+import static booktracker.log.BookLogMessages.UPDATE_FAIL_LOG;
+import static booktracker.log.BookLogMessages.UPDATE_SUCCESS_LOG;
+import static booktracker.log.BookLogMessages.DELETE_FAIL_LOG;
+import static booktracker.log.BookLogMessages.DELETE_SUCCESS_LOG;
 
 public class BookCrudService {
 
