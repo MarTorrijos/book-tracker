@@ -1,7 +1,8 @@
 package booktracker.service;
 
 import booktracker.exceptions.BookNotFoundException;
-import booktracker.testdata.DataProvider;
+import booktracker.testdata.BookDataProvider;
+import booktracker.testdata.BookListDataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Book;
@@ -35,10 +36,10 @@ public class BookQueryServiceTest {
 
     @BeforeEach
     void setUp() {
-        book = DataProvider.validBook();
+        book = BookDataProvider.validBook();
         title = book.getTitle();
         id = book.getId();
-        bookList = DataProvider.bookListMock();
+        bookList = BookListDataProvider.basicBookList();
     }
 
     @Test

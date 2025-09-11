@@ -1,7 +1,7 @@
 package booktracker.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
-import booktracker.testdata.DataProvider;
+import booktracker.testdata.BookDataProvider;
 import booktracker.validators.implementations.book.GenresValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ public class GenresValidatorTest {
 
     @Test
     void validGenres() {
-        assertDoesNotThrow(() -> validator.validate(DataProvider.validGenres()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validGenres()));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GenresValidatorTest {
     @DisplayName("Should throw when genre exceeds 50 characters")
     void genreTooLong() {
         assertThrows(FieldValidationException.class,
-                () -> validator.validate(DataProvider.genreTooLong()));
+                () -> validator.validate(BookDataProvider.genreTooLong()));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class GenresValidatorTest {
     void multipleGenresOneTooLong() {
         FieldValidationException exception = assertThrows(
                 FieldValidationException.class,
-                () -> validator.validate(DataProvider.oneGenreTooLong()));
+                () -> validator.validate(BookDataProvider.oneGenreTooLong()));
 
         assertTrue(exception.getMessage().startsWith(GENRE_TOO_LONG));
     }

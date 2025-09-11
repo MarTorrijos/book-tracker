@@ -1,7 +1,7 @@
 package booktracker.service;
 
 import booktracker.service.author.AuthorService;
-import booktracker.testdata.DataProvider;
+import booktracker.testdata.BookDataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Author;
@@ -36,8 +36,8 @@ public class BookCrudServiceTest {
 
     @BeforeEach
     void setUp() {
-        book = DataProvider.validBook();
-        duplicatedBook = DataProvider.duplicatedBook();
+        book = BookDataProvider.validBook();
+        duplicatedBook = BookDataProvider.duplicatedBook();
         author = book.getAuthor();
         id = book.getId();
     }
@@ -66,12 +66,12 @@ public class BookCrudServiceTest {
 
     @Test
     void save_NoAuthor_Fail() {
-        assertThrows(NullPointerException.class, () -> service.save(DataProvider.bookWithNoAuthor()));
+        assertThrows(NullPointerException.class, () -> service.save(BookDataProvider.bookWithNoAuthor()));
     }
 
     @Test
     void update_Success() {
-        Book updatedBook = DataProvider.updatedBook(id);
+        Book updatedBook = BookDataProvider.updatedBook(id);
         when(bookDaoMock.findBookById(id)).thenReturn(book);
 
         assertDoesNotThrow(() -> service.update(id, updatedBook));
@@ -82,7 +82,7 @@ public class BookCrudServiceTest {
 
     @Test
     void update_BookNotFound_Fail() {
-        Book updatedBook = DataProvider.updatedBook(id);
+        Book updatedBook = BookDataProvider.updatedBook(id);
         when(bookDaoMock.findBookById(id)).thenReturn(null);
 
         assertThrows(BookNotFoundException.class, () -> service.update(id, updatedBook));

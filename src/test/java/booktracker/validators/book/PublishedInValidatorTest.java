@@ -1,7 +1,7 @@
 package booktracker.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
-import booktracker.testdata.DataProvider;
+import booktracker.testdata.BookDataProvider;
 import booktracker.validators.implementations.book.PublishedInValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class PublishedInValidatorTest {
 
     @Test
     void validPublishedIn() {
-        assertDoesNotThrow(() -> validator.validate(DataProvider.validPublishedIn()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validPublishedIn()));
     }
 
     @Test
@@ -30,12 +30,12 @@ public class PublishedInValidatorTest {
 
     @Test
     void negativePublishedIn() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.negativeNumber()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.negativeNumber()));
     }
 
     @Test
     void futurePublishedIn() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(DataProvider.futurePublishedIn()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.futurePublishedIn()));
     }
 
 }

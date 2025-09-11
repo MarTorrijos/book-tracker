@@ -5,9 +5,8 @@ import booktracker.entities.Book;
 import org.bson.types.ObjectId;
 
 import java.time.Year;
-import java.util.List;
 
-public class DataProvider {
+public class BookDataProvider {
 
     private static final int CURRENT_YEAR = Year.now().getValue();
     private static final String DEFAULT_AUTHOR_NAME = "Frank Herbert";
@@ -60,26 +59,6 @@ public class DataProvider {
         book.setTitle(DEFAULT_BOOK_TITLE);
         book.setAuthor(validAuthor());
         return book;
-    }
-
-    public static List<Book> bookListMock() {
-        return List.of(
-                Book.builder()
-                        .id(new ObjectId())
-                        .title("A Wizard of Earthsea")
-                        .author(Author.builder().name("Ursula K. Le Guin").build())
-                        .build(),
-                Book.builder()
-                        .id(new ObjectId())
-                        .title("The Left Hand of Darkness")
-                        .author(Author.builder().name("Ursula K. Le Guin").build())
-                        .build(),
-                Book.builder()
-                        .id(new ObjectId())
-                        .title("The Dispossessed")
-                        .author(Author.builder().name("Ursula K. Le Guin").build())
-                        .build()
-        );
     }
 
     // Genres
