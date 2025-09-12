@@ -15,10 +15,11 @@ public class Author {
 
     private ObjectId id;
     private String name;
+    private String surname;
 
     @Override
     public String toString() {
-        return name;
+        return name + " " + surname;
     }
 
     @JsonPOJOBuilder(withPrefix = "")
