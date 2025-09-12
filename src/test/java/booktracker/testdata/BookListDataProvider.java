@@ -49,7 +49,13 @@ public class BookListDataProvider {
                         .title("Assassin's Apprentice")
                         .author(Author.builder().name("Robin Hobb").build())
                         .read(true)
-                        .review(new Review(2021, 4.5f, "So good", true))
+                        .review(new Review(2025, 4.5f, "So good", true))
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Where the wild things are")
+                        .author(Author.builder().name("Maurice Sendak").build())
+                        .read(false)
                         .build()
         );
     }
