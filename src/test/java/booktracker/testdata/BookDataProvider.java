@@ -9,8 +9,10 @@ import java.time.Year;
 public class BookDataProvider {
 
     private static final int CURRENT_YEAR = Year.now().getValue();
-    private static final String DEFAULT_AUTHOR_NAME = "Frank Herbert";
-    private static final String LONG_AUTHOR_NAME = "A".repeat(301);
+    private static final String DEFAULT_AUTHOR_NAME = "Frank";
+    private static final String DEFAULT_AUTHOR_SURNAME = "Herbert";
+    private static final String LONG_AUTHOR_NAME = "A".repeat(101);
+    private static final String LONG_AUTHOR_SURNAME = "A".repeat(201);
     private static final String DEFAULT_BOOK_TITLE = "Dune";
     private static final String LONG_TITLE = "A".repeat(201);
     private static final int MAX_PAGES = 2000;
@@ -20,12 +22,19 @@ public class BookDataProvider {
     public static Author validAuthor() {
         Author author = new Author();
         author.setName(DEFAULT_AUTHOR_NAME);
+        author.setSurname(DEFAULT_AUTHOR_SURNAME);
         return author;
     }
 
     public static Author authorNameTooLong() {
         Author author = new Author();
         author.setName(LONG_AUTHOR_NAME);
+        return author;
+    }
+
+    public static Author authorSurnameTooLong() {
+        Author author = new Author();
+        author.setSurname(LONG_AUTHOR_SURNAME);
         return author;
     }
 
