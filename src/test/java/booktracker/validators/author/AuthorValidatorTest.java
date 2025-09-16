@@ -3,7 +3,7 @@ package booktracker.validators.author;
 import booktracker.entities.Author;
 import booktracker.exceptions.FieldValidationException;
 import booktracker.testdata.BookDataProvider;
-import booktracker.validators.implementations.author.AuthorValidator;
+import booktracker.validators.implementations.author.AuthorNameValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,15 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorValidatorTest {
 
-    private AuthorValidator validator;
+    private AuthorNameValidator validator;
     private Author validAuthor;
     private Author authorNameTooLong;
+    private Author authorSurnameTooLong;
 
     @BeforeEach
     void setUp() {
-        validator = new AuthorValidator();
+        validator = new AuthorNameValidator();
         validAuthor = BookDataProvider.validAuthor();
         authorNameTooLong = BookDataProvider.authorNameTooLong();
+        authorSurnameTooLong = BookDataProvider.authorSurnameTooLong();
     }
 
     @Test
@@ -39,9 +41,20 @@ public class AuthorValidatorTest {
     }
 
     @Test
-    @DisplayName("Should throw when author name exceeds 300 characters")
+    @DisplayName("Should throw when author name exceeds 100 characters")
     void authorNameTooLong() {
         assertThrows(FieldValidationException.class, () -> validator.validate(authorNameTooLong.getName()));
+    }
+
+    @Test
+    void emptyAuthorSurname() {
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.emptyString()));
+    }
+
+    @Test
+    @DisplayName("Should throw when author surname exceeds 200 characters")
+    void authorSurnameTooLong() {
+        assertThrows(FieldValidationException.class, () -> validator.validate(authorSurnameTooLong.getSurname()));
     }
 
 }
