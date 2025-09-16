@@ -1,54 +1,40 @@
 package booktracker.dao.stats;
 
-import booktracker.entities.Book;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
-import java.util.List;
-import java.util.Map;
+import java.time.Year;
 
 public class BookStatsDaoImpl implements BookStatsDao {
 
     private final MongoCollection<Document> collection;
-    private final ObjectMapper mapper;
+    private final int CURRENT_YEAR = Year.now().getValue();
 
-    public BookStatsDaoImpl(MongoCollection<Document> collection, ObjectMapper mapper) {
+    public BookStatsDaoImpl(MongoCollection<Document> collection) {
         this.collection = collection;
-        this.mapper = mapper;
     }
 
     @Override
     public int countBooksReadThisYear() {
+        Document filter = new Document("review.readIn", CURRENT_YEAR)
+                .append("read", true);
 
+        return (int) collection.countDocuments(filter);
     }
 
     @Override
-    public int countBooksReadInGivenYear(int year) {
+    public int countBooksReadInGivenYear(int givenYear) {
+        Document filter = new Document("review.readIn", givenYear)
+                .append("read", true);
 
+        return (int) collection.countDocuments(filter);
     }
 
     @Override
     public int countTotalBooksRead() {
+        Document filter = new Document("read", true);
 
-    }
-
-    // Esto me está dando error porque no existe en BookStatsDao
-    // Existe en BookDao, pero creo que lo voy a necesitar aquí también
-    // Debería traerlo?
-    @Override
-    public List<Book> findAllBooks() {
-        return collection.find()
-                .into(new java.util.ArrayList<>())
-                .stream()
-                .map(doc -> mapper.convertValue(doc, Book.class))
-                .toList();
-    }
-
-    private Document toDocument(Book book) {
-        Map<String, Object> map = mapper.convertValue(book, new TypeReference<>() {});
-        return new Document(map);
+        return (int) collection.countDocuments(filter);
     }
 
 }
