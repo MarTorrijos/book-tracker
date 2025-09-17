@@ -1,4 +1,4 @@
-package booktracker.service;
+package booktracker.service.book;
 
 import booktracker.exceptions.BookNotFoundException;
 import booktracker.testdata.BookDataProvider;
@@ -6,7 +6,6 @@ import booktracker.testdata.BookListDataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Book;
-import booktracker.service.book.BookQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

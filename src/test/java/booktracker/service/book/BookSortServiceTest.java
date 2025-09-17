@@ -1,8 +1,7 @@
-package booktracker.service;
+package booktracker.service.book;
 
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Book;
-import booktracker.service.book.BookSortService;
 import booktracker.testdata.BookListDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package booktracker.service;
+package booktracker.service.book;
 
 import booktracker.service.author.AuthorService;
 import booktracker.testdata.BookDataProvider;
@@ -7,7 +7,6 @@ import booktracker.dao.book.BookDao;
 import booktracker.entities.Author;
 import booktracker.entities.Book;
 import booktracker.exceptions.BookNotFoundException;
-import booktracker.service.book.BookCrudService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
