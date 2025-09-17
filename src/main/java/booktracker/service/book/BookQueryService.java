@@ -9,12 +9,12 @@ import booktracker.exceptions.BookNotFoundException;
 
 import java.util.List;
 
-import static booktracker.log.BookLogMessages.FIND_BY_AUTHOR_FAIL;
-import static booktracker.log.BookLogMessages.FIND_BY_AUTHOR_SUCCESS;
-import static booktracker.log.BookLogMessages.FIND_BY_TITLE_SUCCESS_LOG;
-import static booktracker.log.BookLogMessages.FIND_BY_TITLE_FAIL_LOG;
-import static booktracker.log.BookLogMessages.FIND_BY_ID_FAIL_LOG;
-import static booktracker.log.BookLogMessages.FIND_BY_ID_SUCCESS_LOG;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_FAIL;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_SUCCESS;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_SUCCESS_LOG;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_FAIL_LOG;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_ID_FAIL_LOG;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_ID_SUCCESS_LOG;
 
 public class BookQueryService {
 
