@@ -1,7 +1,8 @@
-package booktracker.service.book;
+package booktracker.unit.service.book;
 
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Book;
+import booktracker.service.book.BookSortService;
 import booktracker.testdata.BookListDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class BookSortServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(bookDaoMock.findAllBooks()).thenReturn(BookListDataProvider.bookListToSort());
+        when(bookDaoMock.findAllBooks()).thenReturn(BookListDataProvider.complexBookList());
     }
 
     @Test

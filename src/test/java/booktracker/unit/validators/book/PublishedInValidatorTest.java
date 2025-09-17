@@ -1,4 +1,4 @@
-package booktracker.validators.book;
+package booktracker.unit.validators.book;
 
 import booktracker.exceptions.FieldValidationException;
 import booktracker.testdata.BookDataProvider;

@@ -1,6 +1,7 @@
-package booktracker.service.book;
+package booktracker.unit.service.book;
 
 import booktracker.exceptions.BookNotFoundException;
+import booktracker.service.book.BookQueryService;
 import booktracker.testdata.BookDataProvider;
 import booktracker.testdata.BookListDataProvider;
 import org.bson.types.ObjectId;

@@ -1,4 +1,4 @@
-package booktracker.validators.author;
+package booktracker.unit.validators.author;
 
 import booktracker.entities.Author;
 import booktracker.exceptions.FieldValidationException;

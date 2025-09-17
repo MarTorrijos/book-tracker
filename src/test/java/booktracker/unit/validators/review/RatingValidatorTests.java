@@ -1,4 +1,4 @@
-package booktracker.validators.review;
+package booktracker.unit.validators.review;
 
 import booktracker.exceptions.FieldValidationException;
 import booktracker.validators.implementations.review.RatingValidator;
