@@ -5,6 +5,7 @@ import booktracker.entities.Book;
 import booktracker.entities.Review;
 import org.bson.types.ObjectId;
 
+import java.time.Year;
 import java.util.List;
 
 public class BookListDataProvider {
@@ -29,7 +30,7 @@ public class BookListDataProvider {
         );
     }
 
-    public static List<Book> bookListToSort() {
+    public static List<Book> complexBookList() {
         return List.of(
                 Book.builder()
                         .id(new ObjectId())
@@ -56,6 +57,27 @@ public class BookListDataProvider {
                         .title("Where the wild things are")
                         .author(Author.builder().name("Maurice Sendak").build())
                         .read(false)
+                        .build()
+        );
+    }
+
+    public static List<Book> statsBookList() {
+        int currentYear = Year.now().getValue();
+
+        return List.of(
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Pride and Prejudice")
+                        .author(Author.builder().name("Jane Austen").build())
+                        .read(true)
+                        .review(new Review(currentYear, 3f, "meh", false))
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Steppenwolf")
+                        .author(Author.builder().name("Hermann Hesse").build())
+                        .read(true)
+                        .review(new Review(2021, 4.1f, "", true))
                         .build()
         );
     }
