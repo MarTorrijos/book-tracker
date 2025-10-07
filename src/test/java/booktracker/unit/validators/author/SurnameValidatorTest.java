@@ -3,7 +3,7 @@ package booktracker.unit.validators.author;
 import booktracker.entities.Author;
 import booktracker.exceptions.FieldValidationException;
 import booktracker.testdata.BookDataProvider;
-import booktracker.validators.implementations.author.AuthorNameValidator;
+import booktracker.validators.implementations.author.AuthorSurnameValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SurnameValidatorTest {
 
-    private AuthorNameValidator validator;
+    private AuthorSurnameValidator validator;
     private Author validAuthor;
     private Author authorSurnameTooLong;
 
     @BeforeEach
     void setUp() {
-        validator = new AuthorNameValidator();
+        validator = new AuthorSurnameValidator();
         validAuthor = BookDataProvider.validAuthor();
         authorSurnameTooLong = BookDataProvider.authorSurnameTooLong();
     }
