@@ -74,5 +74,14 @@ jacocoTestReport {
         csv.required = false
         html.required = true
     }
+}
 
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.85 // 85% minimum coverage
+            }
+        }
+    }
 }
