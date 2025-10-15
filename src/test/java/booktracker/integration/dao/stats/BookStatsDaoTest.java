@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookStatsDaoTest {
 
+    // TODO: STILL NEED TO CHECK THESE TESTS PASS!
+
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0");
 
@@ -57,6 +59,7 @@ public class BookStatsDaoTest {
     }
 
     @Test
+    @DisplayName("Verifies the count of books read in the current year matches the expected value")
     void testCountBooksReadThisYear() {
         int expected = (int) BookListDataProvider.statsBookList().stream()
                 .filter(Book::isRead)
@@ -68,7 +71,30 @@ public class BookStatsDaoTest {
         assertEquals(expected, actual);
     }
 
-    // TODO: THE REST OF THE METHODS!!
+    @Test
+    @DisplayName("Verifies the count of books read in the given year matches the expected value")
+    void testCountBooksReadInGivenYear() {
+        int expected = (int) BookListDataProvider.statsBookList().stream()
+                .filter(Book::isRead)
+                .filter(b -> b.getReview().getReadIn() == 2025)
+                .count();
+
+        int actual = dao.countBooksReadInGivenYear(2025);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Verifies that the total number of books read matches the expected value")
+    void testCountTotalBooksRead() {
+        int expected = (int) BookListDataProvider.statsBookList().stream()
+                .filter(Book::isRead)
+                .count();
+
+        int actual = dao.countTotalBooksRead();
+
+        assertEquals(expected, actual);
+    }
 
     // Document conversion helper
     private Document convertBookToDocument(Book book) {
