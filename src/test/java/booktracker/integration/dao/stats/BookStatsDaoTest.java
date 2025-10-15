@@ -9,6 +9,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.jupiter.api.*;
+import org.testcontainers.containers.MongoDBContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Year;
 import java.util.List;
@@ -16,20 +19,25 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("integration")
+@Testcontainers
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookStatsDaoTest {
 
-    private static MongoClient mongoClient;
+    @Container
+    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0");
+
+    private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
     private BookStatsDaoImpl dao;
 
     @BeforeAll
-    static void setUpAll() {
-        mongoClient = MongoClients.create("mongodb://localhost:27017");
+    void setUpAll() {
+        mongoClient = MongoClients.create(mongoDBContainer.getConnectionString());
     }
 
     @AfterAll
-    static void tearDownAll() {
+    void tearDownAll() {
         mongoClient.close();
     }
 
@@ -45,7 +53,6 @@ public class BookStatsDaoTest {
                 .toList();
 
         collection.insertMany(docs);
-
         dao = new BookStatsDaoImpl(collection);
     }
 
@@ -63,6 +70,7 @@ public class BookStatsDaoTest {
 
     // TODO: THE REST OF THE METHODS!!
 
+    // Document conversion helper
     private Document convertBookToDocument(Book book) {
         Document doc = new Document();
         doc.append("_id", book.getId());
