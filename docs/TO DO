@@ -1,7 +1,7 @@
 
-- BookStatsService & BookStatsDaoImpl
 
-- BookStatsServiceTest
+Finish BookStatsDaoTest
+    use testcontainers for it
 
 
 ------------------------------------------------------------------
