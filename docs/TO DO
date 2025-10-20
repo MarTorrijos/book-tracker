@@ -1,8 +1,6 @@
 
-
-Finish BookStatsDaoTest
-    use testcontainers for it
-
+AuthorStatsDaoImpl
+AuthorStatsDao testing
 
 ------------------------------------------------------------------
 
