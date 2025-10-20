@@ -13,7 +13,7 @@ import static com.mongodb.client.model.Aggregates.match;
 
 public class AuthorStatsDaoImpl implements AuthorStatsDao {
 
-    private MongoCollection<Document> collection;
+    private final MongoCollection<Document> collection;
 
     public AuthorStatsDaoImpl(MongoCollection<Document> collection) {
         this.collection = collection;
