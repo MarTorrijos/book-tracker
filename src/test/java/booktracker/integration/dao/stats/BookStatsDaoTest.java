@@ -23,8 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookStatsDaoTest {
 
-    // TODO: STILL NEED TO CHECK THESE TESTS PASS!
-
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0");
 
