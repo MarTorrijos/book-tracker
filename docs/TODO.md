@@ -1,6 +1,10 @@
 
-AuthorStatsDaoImpl
-AuthorStatsDao testing
+- Check where to handle errors (like database failed connections)
+This is not being done right now
+
+- Check again book and author stats services
+
+- AuthorStats testing
 
 ------------------------------------------------------------------
 
