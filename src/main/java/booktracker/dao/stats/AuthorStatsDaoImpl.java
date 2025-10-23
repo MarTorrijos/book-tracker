@@ -20,61 +20,25 @@ public class AuthorStatsDaoImpl implements AuthorStatsDao {
     }
 
     @Override
-    public List<String> mostReadAuthor() {
+    public List<Document> mostReadAuthor() {
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
                 match(Filters.eq("read", true)),
                 new Document("$group", new Document("_id", "$author")
                         .append("count", new Document("$sum", 1))),
                 new Document("$sort", new Document("count", -1))
         ));
-
-        List<String> topAuthors = new ArrayList<>();
-        int maxCount = -1;
-
-        for (Document doc : result) {
-            int count = doc.getInteger("count");
-            String author = doc.getString("_id");
-
-            if (maxCount == -1) {
-                maxCount = count;
-                topAuthors.add(author);
-            } else if (count == maxCount) {
-                topAuthors.add(author);
-            } else {
-                break;
-            }
-        }
-
-        return topAuthors;
+        return result.into(new ArrayList<>());
     }
 
     @Override
-    public List<String> authorWithBestRatedBooks() {
+    public List<Document> authorWithBestRatedBooks() {
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
                 match(Filters.exists("rating")),
                 new Document("$group", new Document("_id", "$author")
                         .append("avgRating", new Document("$avg", "$rating"))),
                 new Document("$sort", new Document("avgRating", -1))
         ));
-
-        List<String> topAuthors = new ArrayList<>();
-        double maxAvgRating = -1;
-
-        for (Document doc : result) {
-            double avgRating = doc.getDouble("avgRating");
-            String author = doc.getString("_id");
-
-            if (maxAvgRating == -1) {
-                maxAvgRating = avgRating;
-                topAuthors.add(author);
-            } else if (Double.compare(avgRating, maxAvgRating) == 0) {
-                topAuthors.add(author);
-            } else {
-                break;
-            }
-        }
-
-        return topAuthors;
+        return result.into(new ArrayList<>());
     }
 
 }
