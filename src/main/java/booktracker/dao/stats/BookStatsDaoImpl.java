@@ -1,7 +1,5 @@
 package booktracker.dao.stats;
 
-import booktracker.exceptions.DataAccessException;
-import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
@@ -18,34 +16,22 @@ public class BookStatsDaoImpl implements BookStatsDao {
 
     @Override
     public int countBooksReadThisYear() {
-        try {
-            Document filter = new Document("review.readIn", CURRENT_YEAR)
-                    .append("read", true);
-            return (int) collection.countDocuments(filter);
-        } catch (MongoException e) {
-            throw new DataAccessException("Failed to count books read this year", e);
-        }
+        Document filter = new Document("review.readIn", CURRENT_YEAR)
+                .append("read", true);
+        return (int) collection.countDocuments(filter);
     }
 
     @Override
     public int countBooksReadInGivenYear(int givenYear) {
-        try {
-            Document filter = new Document("review.readIn", givenYear)
-                    .append("read", true);
-            return (int) collection.countDocuments(filter);
-        } catch (MongoException e) {
-            throw new DataAccessException("Failed to count books in year " + givenYear, e);
-        }
+        Document filter = new Document("review.readIn", givenYear)
+                .append("read", true);
+        return (int) collection.countDocuments(filter);
     }
 
     @Override
     public int countTotalBooksRead() {
-        try {
-            Document filter = new Document("read", true);
-            return (int) collection.countDocuments(filter);
-        } catch (MongoException e) {
-            throw new DataAccessException("Failed to count total books read", e);
-        }
+        Document filter = new Document("read", true);
+        return (int) collection.countDocuments(filter);
     }
 
 }
