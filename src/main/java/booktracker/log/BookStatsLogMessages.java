@@ -6,7 +6,13 @@ public final class BookStatsLogMessages {
         // Created to prevent instantiation
     }
 
+    public static final String COUNT_BOOKS_READ_THIS_YEAR =
+            "Books read this year : {}";
+
     public static final String COUNT_BOOKS_READ_IN_YEAR =
-            "Counting books read in year: {}";
+            "Books read in year {} : {}";
+
+    public static final String COUNT_TOTAL_BOOKS_READ =
+            "Total books read : {}";
 
 }
