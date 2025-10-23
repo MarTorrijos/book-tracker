@@ -4,7 +4,7 @@ import booktracker.dao.stats.BookStatsDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static booktracker.log.BookStatsLogMessages.COUNT_BOOKS_READ_IN_YEAR;
+import static booktracker.log.BookStatsLogMessages.*;
 
 public class BookStatsService {
 
@@ -16,16 +16,21 @@ public class BookStatsService {
     }
 
     public int countBooksReadThisYear() {
-        return bookStatsDao.countBooksReadThisYear();
+        int count = bookStatsDao.countBooksReadThisYear();
+        logger.info(COUNT_BOOKS_READ_THIS_YEAR, count);
+        return count;
     }
 
     public int countBooksReadInGivenYear(int year) {
-        logger.debug(COUNT_BOOKS_READ_IN_YEAR, year);
-        return bookStatsDao.countBooksReadInGivenYear(year);
+        int count = bookStatsDao.countBooksReadThisYear();
+        logger.info(COUNT_BOOKS_READ_IN_YEAR, year, count);
+        return count;
     }
 
     public int countTotalBooksRead() {
-        return bookStatsDao.countTotalBooksRead();
+        int count = bookStatsDao.countTotalBooksRead();
+        logger.info(COUNT_TOTAL_BOOKS_READ, count);
+        return count;
     }
 
 }
