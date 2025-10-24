@@ -1,15 +1,15 @@
 package booktracker.dao.stats;
 
-import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Accumulators;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.mongodb.client.model.Aggregates.match;
 
 public class AuthorStatsDaoImpl implements AuthorStatsDao {
 
@@ -21,24 +21,20 @@ public class AuthorStatsDaoImpl implements AuthorStatsDao {
 
     @Override
     public List<Document> mostReadAuthor() {
-        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
-                match(Filters.eq("read", true)),
-                new Document("$group", new Document("_id", "$author")
-                        .append("count", new Document("$sum", 1))),
-                new Document("$sort", new Document("count", -1))
-        ));
-        return result.into(new ArrayList<>());
+        return collection.aggregate(Arrays.asList(
+                Aggregates.match(Filters.eq("read", true)),
+                Aggregates.group("$author", Accumulators.sum("count", 1)),
+                Aggregates.sort(Sorts.descending("count"))
+        )).into(new ArrayList<>());
     }
 
     @Override
     public List<Document> authorWithBestRatedBooks() {
-        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(
-                match(Filters.exists("rating")),
-                new Document("$group", new Document("_id", "$author")
-                        .append("avgRating", new Document("$avg", "$rating"))),
-                new Document("$sort", new Document("avgRating", -1))
-        ));
-        return result.into(new ArrayList<>());
+        return collection.aggregate(Arrays.asList(
+           Aggregates.match(Filters.exists("rating")),
+           Aggregates.group("$author", Accumulators.avg("avgRating", "$rating")),
+           Aggregates.sort(Sorts.descending("avgRating"))
+        )).into(new ArrayList<>());
     }
 
 }
