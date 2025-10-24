@@ -45,13 +45,15 @@ public class AuthorStatsService {
 
         for (Document doc : docs) {
             int count = doc.getInteger("count");
-            String author = doc.getString("_id");
+
+            Document authorDoc = doc.get("_id", Document.class);
+            String authorFullName = authorDoc.getString("name") + " " + authorDoc.getString("surname");
 
             if (maxCount == -1) {
                 maxCount = count;
-                topAuthors.add(author);
+                topAuthors.add(authorFullName);
             } else if (count == maxCount) {
-                topAuthors.add(author);
+                topAuthors.add(authorFullName);
             } else {
                 break;
             }
@@ -65,13 +67,15 @@ public class AuthorStatsService {
 
         for (Document doc : docs) {
             double avgRating = doc.getDouble("avgRating");
-            String author = doc.getString("_id");
+
+            Document authorDoc = doc.get("_id", Document.class);
+            String authorFullName = authorDoc.getString("name") + " " + authorDoc.getString("surname");
 
             if (maxAvgRating == -1) {
                 maxAvgRating = avgRating;
-                topAuthors.add(author);
+                topAuthors.add(authorFullName);
             } else if (Double.compare(avgRating, maxAvgRating) == 0) {
-                topAuthors.add(author);
+                topAuthors.add(authorFullName);
             } else {
                 break;
             }
