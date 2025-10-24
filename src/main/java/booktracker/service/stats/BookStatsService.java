@@ -17,19 +17,19 @@ public class BookStatsService {
 
     public int countBooksReadThisYear() {
         int count = bookStatsDao.countBooksReadThisYear();
-        logger.info(COUNT_BOOKS_READ_THIS_YEAR, count);
+        logger.info(COUNT_BOOKS_READ_THIS_YEAR_LOG, count);
         return count;
     }
 
     public int countBooksReadInGivenYear(int year) {
         int count = bookStatsDao.countBooksReadThisYear();
-        logger.info(COUNT_BOOKS_READ_IN_YEAR, year, count);
+        logger.info(COUNT_BOOKS_READ_IN_YEAR_LOG, year, count);
         return count;
     }
 
     public int countTotalBooksRead() {
         int count = bookStatsDao.countTotalBooksRead();
-        logger.info(COUNT_TOTAL_BOOKS_READ, count);
+        logger.info(COUNT_TOTAL_BOOKS_READ_LOG, count);
         return count;
     }
 

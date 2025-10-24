@@ -9,8 +9,8 @@ import booktracker.exceptions.BookNotFoundException;
 
 import java.util.List;
 
-import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_FAIL;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_SUCCESS;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_FAIL_LOG;
+import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_SUCCESS_LOG;
 import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_SUCCESS_LOG;
 import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_FAIL_LOG;
 import static booktracker.log.BookQueryLogMessages.FIND_BY_ID_FAIL_LOG;
@@ -57,9 +57,9 @@ public class BookQueryService {
         List<Book> books = bookDao.findBookByAuthor(author);
 
         if (books.isEmpty()) {
-            logger.warn(FIND_BY_AUTHOR_FAIL, author);
+            logger.warn(FIND_BY_AUTHOR_FAIL_LOG, author);
         } else {
-            logger.info(FIND_BY_AUTHOR_SUCCESS, author);
+            logger.info(FIND_BY_AUTHOR_SUCCESS_LOG, author);
         }
 
         return books;
