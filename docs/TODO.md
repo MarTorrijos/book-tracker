@@ -1,10 +1,12 @@
 
-- Check where to handle errors (like database failed connections)
-This is not being done right now
-
-- Check again book and author stats services
+- Finish AuthorStats (dao, dao impl, service)
+  check current uncommited code, not sure if it's ideal
 
 - AuthorStats testing
+
+- Check with Jacoco where more testing is needed
+
+- Start creating menus
 
 ------------------------------------------------------------------
 
