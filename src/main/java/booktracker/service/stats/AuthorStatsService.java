@@ -8,6 +8,8 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+import static booktracker.log.AuthorStatsLogMessages.*;
+
 public class AuthorStatsService {
 
     private final AuthorStatsDao authorStatsDao;
@@ -21,8 +23,7 @@ public class AuthorStatsService {
         List<Document> docs = authorStatsDao.mostReadAuthor();
 
         if (docs.isEmpty()) {
-            // TODO: Not hard code this. Move it to /log
-            logger.info("No authors found. Couldn't show most read author");
+            logger.info(MOST_READ_AUTHOR_FAIL_LOG);
         }
 
         return filterTopAuthorsByCount(docs);
@@ -32,8 +33,7 @@ public class AuthorStatsService {
         List<Document> docs = authorStatsDao.authorWithBestRatedBooks();
 
         if (docs.isEmpty()) {
-            // TODO: Not hard code this. Move it to /log
-            logger.info("No authors found. Couldn't show author with best rated books");
+            logger.info(BEST_RATED_AUTHOR_FAIL_LOG);
         }
 
         return filterTopAuthorsByAvgRating(docs);
