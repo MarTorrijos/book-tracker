@@ -1,10 +1,12 @@
 package booktracker.dao.stats;
 
+import org.bson.Document;
+
 import java.util.List;
 
 public interface AuthorStatsDao {
 
-    List<String> mostReadAuthor();
-    List<String> authorWithBestRatedBooks();
+    List<Document> mostReadAuthor();
+    List<Document> authorWithBestRatedBooks();
 
 }
