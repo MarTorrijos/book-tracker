@@ -2,11 +2,6 @@ package booktracker.log;
 
 public final class BookQueryLogMessages {
 
-    public BookQueryLogMessages() {
-        // Created to prevent instantiation
-    }
-
-    // FIND
     public static final String FIND_BY_ID_SUCCESS_LOG =
             "Book with id {} found";
 

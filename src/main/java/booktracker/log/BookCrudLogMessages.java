@@ -2,10 +2,6 @@ package booktracker.log;
 
 public final class BookCrudLogMessages {
 
-    public BookCrudLogMessages() {
-        // Created to prevent instantiation
-    }
-
     // SAVE
     public static final String SAVE_SUCCESS_LOG =
             "Book titled {} saved successfully";
