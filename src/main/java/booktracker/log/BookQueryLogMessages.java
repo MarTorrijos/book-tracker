@@ -14,10 +14,10 @@ public final class BookQueryLogMessages {
     public static final String FIND_BY_TITLE_FAIL_LOG =
             "Book with title {} couldn't be found";
 
-    public static final String FIND_BY_AUTHOR_SUCCESS =
+    public static final String FIND_BY_AUTHOR_SUCCESS_LOG =
             "Book/s by author {} found";
 
-    public static final String FIND_BY_AUTHOR_FAIL =
+    public static final String FIND_BY_AUTHOR_FAIL_LOG =
             "Book/s by author {} couldn't be found";
 
 }
