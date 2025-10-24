@@ -23,7 +23,11 @@ public class AuthorStatsDaoImpl implements AuthorStatsDao {
     public List<Document> mostReadAuthor() {
         return collection.aggregate(Arrays.asList(
                 Aggregates.match(Filters.eq("read", true)),
-                Aggregates.group("$author", Accumulators.sum("count", 1)),
+                Aggregates.group(
+                        new Document("name", "$author.name")
+                                .append("surname", "$author.surname"),
+                        Accumulators.sum("count", 1)
+                ),
                 Aggregates.sort(Sorts.descending("count"))
         )).into(new ArrayList<>());
     }
@@ -32,7 +36,11 @@ public class AuthorStatsDaoImpl implements AuthorStatsDao {
     public List<Document> authorWithBestRatedBooks() {
         return collection.aggregate(Arrays.asList(
            Aggregates.match(Filters.exists("rating")),
-           Aggregates.group("$author", Accumulators.avg("avgRating", "$rating")),
+           Aggregates.group(
+                   new Document("name", "$author.name")
+                           .append("surname", "$author.surname"),
+                   Accumulators.avg("avgRating", "$rating")
+           ),
            Aggregates.sort(Sorts.descending("avgRating"))
         )).into(new ArrayList<>());
     }
