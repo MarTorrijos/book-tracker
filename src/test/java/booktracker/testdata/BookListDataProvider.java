@@ -109,4 +109,39 @@ public class BookListDataProvider {
         );
     }
 
+    public static List<Book> authorStatsList() {
+        return List.of(
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Dune")
+                        .author(Author.builder()
+                                .name("Frank")
+                                .surname("Herbert")
+                                .build())
+                        .read(true)
+                        .review(new Review(2019, 4.75f, "Could have had more sandworms", true))
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Dune Messiah")
+                        .author(Author.builder()
+                                .name("Frank")
+                                .surname("Herbert")
+                                .build())
+                        .read(true)
+                        .review(new Review(2019, 4.5f, "I wish there was a human/sandworm hybrid...", true))
+                        .build(),
+                Book.builder()
+                        .id(new ObjectId())
+                        .title("Perfume: The story of a murderer")
+                        .author(Author.builder()
+                                .name("Patrick")
+                                .surname("Süskind")
+                                .build())
+                        .read(true)
+                        .review(new Review(2019, 5f, "", true))
+                        .build()
+        );
+    }
+
 }
