@@ -47,7 +47,7 @@ public class BookStatsDaoTest {
         collection = database.getCollection("books");
         collection.drop();
 
-        List<Book> books = BookListDataProvider.statsBookList();
+        List<Book> books = BookListDataProvider.bookStatsList();
         List<Document> docs = books.stream()
                 .map(this::convertBookToDocument)
                 .toList();
@@ -59,7 +59,7 @@ public class BookStatsDaoTest {
     @Test
     @DisplayName("Verifies the count of books read in the current year matches the expected value")
     void testCountBooksReadThisYear() {
-        int expected = (int) BookListDataProvider.statsBookList().stream()
+        int expected = (int) BookListDataProvider.bookStatsList().stream()
                 .filter(Book::isRead)
                 .filter(b -> b.getReview().getReadIn() == Year.now().getValue())
                 .count();
@@ -72,7 +72,7 @@ public class BookStatsDaoTest {
     @Test
     @DisplayName("Verifies the count of books read in the given year matches the expected value")
     void testCountBooksReadInGivenYear() {
-        int expected = (int) BookListDataProvider.statsBookList().stream()
+        int expected = (int) BookListDataProvider.bookStatsList().stream()
                 .filter(Book::isRead)
                 .filter(b -> b.getReview().getReadIn() == 2025)
                 .count();
@@ -85,7 +85,7 @@ public class BookStatsDaoTest {
     @Test
     @DisplayName("Verifies that the total number of books read matches the expected value")
     void testCountTotalBooksRead() {
-        int expected = (int) BookListDataProvider.statsBookList().stream()
+        int expected = (int) BookListDataProvider.bookStatsList().stream()
                 .filter(Book::isRead)
                 .count();
 
