@@ -6,9 +6,17 @@ import booktracker.entities.Review;
 import org.bson.types.ObjectId;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookListDataProvider {
+
+    public static String author1 = "Ursula K. Le Guin";
+    public static String author2 = "Stephenie Meyer";
+
+    public static List<Book> emptyList() {
+        return new ArrayList<Book>();
+    }
 
     public static List<Book> basicBookList() {
         return List.of(
@@ -30,10 +38,10 @@ public class BookListDataProvider {
                         .build(),
                 Book.builder()
                         .id(new ObjectId())
-                        .title("The Dispossessed")
+                        .title("No Logo")
                         .author(Author.builder()
-                                .name("Ursula")
-                                .surname("K. Le Guin")
+                                .name("Naomi")
+                                .surname("Klein")
                                 .build())
                         .build()
         );
