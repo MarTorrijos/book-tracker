@@ -1,5 +1,6 @@
 package booktracker.service.book;
 
+import booktracker.exceptions.AuthorNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
@@ -8,13 +9,9 @@ import booktracker.entities.Book;
 import booktracker.exceptions.BookNotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_FAIL_LOG;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_AUTHOR_SUCCESS_LOG;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_SUCCESS_LOG;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_TITLE_FAIL_LOG;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_ID_FAIL_LOG;
-import static booktracker.log.BookQueryLogMessages.FIND_BY_ID_SUCCESS_LOG;
+import static booktracker.log.BookQueryLogMessages.*;
 
 public class BookQueryService {
 
@@ -57,12 +54,29 @@ public class BookQueryService {
         List<Book> books = bookDao.findBookByAuthor(author);
 
         if (books.isEmpty()) {
-            logger.warn(FIND_BY_AUTHOR_FAIL_LOG, author);
+            logger.warn(NO_BOOKS, author);
         } else {
-            logger.info(FIND_BY_AUTHOR_SUCCESS_LOG, author);
+            List<Book> booksByAuthor = books.stream()
+                    .filter(book -> isBookByAuthor(book, author))
+                    .collect(Collectors.toList());
+
+            if (!booksByAuthor.isEmpty()) {
+                logger.info(FIND_BY_AUTHOR_SUCCESS_LOG, author);
+            } else {
+                logger.warn(FIND_BY_AUTHOR_FAIL_LOG, author);
+                throw new AuthorNotFoundException(String.format("Books by author %s not found", author));
+            }
+
+            return booksByAuthor;
         }
 
         return books;
+    }
+
+
+    private boolean isBookByAuthor(Book book, String author) {
+        String fullName = book.getAuthor().getName() + " " + book.getAuthor().getSurname();
+        return author.equals(fullName);
     }
 
 }
