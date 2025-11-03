@@ -15,7 +15,7 @@ public class BookListDataProvider {
     public static String author2 = "Stephenie Meyer";
 
     public static List<Book> emptyList() {
-        return new ArrayList<Book>();
+        return new ArrayList<>();
     }
 
     public static List<Book> basicBookList() {
