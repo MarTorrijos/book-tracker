@@ -1,5 +1,6 @@
 package booktracker.unit.service.book;
 
+import booktracker.exceptions.AuthorNotFoundException;
 import booktracker.exceptions.BookNotFoundException;
 import booktracker.service.book.BookQueryService;
 import booktracker.testdata.BookDataProvider;
@@ -7,7 +8,6 @@ import booktracker.testdata.BookListDataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.book.BookDao;
 import booktracker.entities.Book;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,18 +29,13 @@ public class BookQueryServiceTest {
     @InjectMocks
     private BookQueryService service;
 
-    private ObjectId id;
-    private Book book;
-    private String title;
-    private List<Book> bookList;
-
-    @BeforeEach
-    void setUp() {
-        book = BookDataProvider.validBook();
-        title = book.getTitle();
-        id = book.getId();
-        bookList = BookListDataProvider.basicBookList();
-    }
+    private final Book book = BookDataProvider.validBook();
+    private final ObjectId id = book.getId();
+    private final String title = book.getTitle();
+    private final List<Book> bookList = BookListDataProvider.basicBookList();
+    private final List<Book> emptyList = BookListDataProvider.emptyList();
+    private final String author1 = BookListDataProvider.author1;
+    private final String author2 = BookListDataProvider.author2;
 
     @Test
     void findAll_Success() {
@@ -89,15 +84,36 @@ public class BookQueryServiceTest {
 
     @Test
     void findByAuthor_Success() {
-        String authorList = "Ursula K. Le Guin";
-        when(bookDaoMock.findBookByAuthor(authorList)).thenReturn(bookList);
+        when(bookDaoMock.findBookByAuthor(author1)).thenReturn(bookList);
 
-        List<Book> result = service.findByAuthor(authorList);
+        List<Book> result = service.findByAuthor(author1);
 
         assertFalse(result.isEmpty());
-        assertTrue(result.stream().
-                allMatch(b -> authorList.equals(b.getAuthor().getName())));
-        verify(bookDaoMock).findBookByAuthor(authorList);
+        assertTrue(result.stream().allMatch(b -> isBookByAuthor(b, author1)));
+        verify(bookDaoMock).findBookByAuthor(author1);
+    }
+
+    private boolean isBookByAuthor(Book book, String author) {
+        String fullName = book.getAuthor().getName() + " " + book.getAuthor().getSurname();
+        return author.equals(fullName);
+    }
+
+    @Test
+    void findByAuthor_NotFound() {
+        when(bookDaoMock.findBookByAuthor(author2)).thenReturn(bookList);
+
+        assertThrows(AuthorNotFoundException.class, () -> service.findByAuthor(author2));
+        verify(bookDaoMock).findBookByAuthor(author2);
+    }
+
+    @Test
+    void findByAuthor_EmptyBookList() {
+        when(bookDaoMock.findBookByAuthor(author1)).thenReturn(emptyList);
+
+        List<Book> result = service.findByAuthor(author1);
+
+        assertTrue(result.isEmpty());
+        verify(bookDaoMock).findBookByAuthor(author1);
     }
 
 }
