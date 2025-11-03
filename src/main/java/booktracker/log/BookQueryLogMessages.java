@@ -20,4 +20,7 @@ public final class BookQueryLogMessages {
     public static final String FIND_BY_AUTHOR_FAIL_LOG =
             "Book/s by author {} couldn't be found";
 
+    public static final String NO_BOOKS =
+            "No books stored in the database, neither from {} or any other author";
+
 }
