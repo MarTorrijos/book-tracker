@@ -8,7 +8,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-import static booktracker.log.AuthorStatsLogMessages.*;
+import static booktracker.service.stats.logs.AuthorStatsLogMessages.*;
 
 public class AuthorStatsService {
 

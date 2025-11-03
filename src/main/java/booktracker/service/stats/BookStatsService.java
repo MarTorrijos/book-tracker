@@ -4,7 +4,7 @@ import booktracker.dao.stats.BookStatsDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static booktracker.log.BookStatsLogMessages.*;
+import static booktracker.service.stats.logs.BookStatsLogMessages.*;
 
 public class BookStatsService {
 

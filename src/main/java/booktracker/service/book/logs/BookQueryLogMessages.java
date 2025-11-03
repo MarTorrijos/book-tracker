@@ -1,4 +1,4 @@
-package booktracker.log;
+package booktracker.service.book.logs;
 
 public final class BookQueryLogMessages {
 

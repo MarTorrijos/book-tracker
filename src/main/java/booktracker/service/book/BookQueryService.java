@@ -11,7 +11,7 @@ import booktracker.exceptions.BookNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static booktracker.log.BookQueryLogMessages.*;
+import static booktracker.service.book.logs.BookQueryLogMessages.*;
 
 public class BookQueryService {
 
