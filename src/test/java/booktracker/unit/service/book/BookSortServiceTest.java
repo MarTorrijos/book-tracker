@@ -41,7 +41,10 @@ public class BookSortServiceTest {
                 .extracting(Book::getTitle)
                 .isSorted();
 
-        assertThat(sorted.getFirst().getAuthor().getName()).isEqualTo("Bram Stoker");
+        assertThat(sorted.getFirst().getAuthor().getName()
+                + " "
+                + sorted.getFirst().getAuthor().getSurname())
+                .isEqualTo("Bram Stoker");
     }
 
     @Test
@@ -53,7 +56,10 @@ public class BookSortServiceTest {
                 .extracting(Book::getTitle)
                 .isSortedAccordingTo(Comparator.reverseOrder());
 
-        assertThat(sorted.getFirst().getAuthor().getName()).isEqualTo("Maurice Sendak");
+        assertThat(sorted.getFirst().getAuthor().getName()
+                + " "
+                + sorted.getFirst().getAuthor().getSurname())
+                .isEqualTo("Maurice Sendak");
     }
 
     @Test
