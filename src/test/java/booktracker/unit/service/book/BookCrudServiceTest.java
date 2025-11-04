@@ -49,7 +49,7 @@ public class BookCrudServiceTest {
         assertDoesNotThrow(() -> service.save(book));
         verify(bookDaoMock).bookExistsByTitle(book.getTitle());
         verify(bookDaoMock).insert(book);
-        verify(authorServiceMock).save(author);
+        verify(authorServiceMock).saveAuthor(author);
     }
 
     @Test
