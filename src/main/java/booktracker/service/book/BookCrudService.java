@@ -28,9 +28,11 @@ public class BookCrudService {
             throw new IllegalArgumentException("Book with that title already exists.");
         }
 
-        Author author = authorService.findByName(book.getAuthor().getName());
+        Author author = authorService.findAuthorByFullName(
+                book.getAuthor().getName(),
+                book.getAuthor().getSurname());
         if (author == null) {
-            author = authorService.save(book.getAuthor());
+            author = authorService.saveAuthor(book.getAuthor());
         }
         book.setAuthor(author);
 
