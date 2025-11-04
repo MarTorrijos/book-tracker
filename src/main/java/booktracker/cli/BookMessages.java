@@ -10,10 +10,10 @@ public final class BookMessages {
             "Book saved";
 
     public static final String SAVE_FAIL_MSG =
-            "Failed to insert book";
+            "Failed to saveAuthor book";
 
     public static final String SAVE_FAIL_DUPLICATED_TITLE_MSG =
-            "Failed to insert book. Title already exists";
+            "Failed to saveAuthor book. Title already exists";
 
     public static final String FIND_FAIL_MSG =
             "Book not found";
