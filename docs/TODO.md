@@ -1,8 +1,13 @@
 
-- Finish AuthorStats (dao, dao impl, service)
-  check current uncommited code, not sure if it's ideal
 
-- AuthorStats testing
+- Check all the author dao/service related code. I need to change it since storing
+  authors' full name on an attribute name was not a good idea. I want to have the
+  attributes name and surname separated
+
+- AuthorServiceTest WIP
+  
+- Right now I have integration tests for BookStatsDao.
+  Shouldn't they be for BookStatsService? Check
 
 - Check with Jacoco where more testing is needed
 
