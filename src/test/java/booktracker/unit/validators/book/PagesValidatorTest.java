@@ -20,7 +20,7 @@ public class PagesValidatorTest {
 
     @Test
     void validPageCount() {
-        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validPages()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.VALID_PAGES));
     }
 
     @Test
@@ -30,17 +30,17 @@ public class PagesValidatorTest {
 
     @Test
     void zeroPagesAllowed() {
-        assertDoesNotThrow(() -> validator.validate(BookDataProvider.zeroPages()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.ZERO_PAGES));
     }
 
     @Test
     void negativePageCount() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.negativeNumber()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.NEGATIVE_NUMBER));
     }
 
     @Test
     void pageCountTooHigh() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.pageCountTooHigh()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.PAGE_COUNT_TOO_HIGH));
     }
 
 }

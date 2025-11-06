@@ -21,7 +21,7 @@ public class GenresValidatorTest {
 
     @Test
     void validGenres() {
-        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validGenres()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.VALID_GENRES));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GenresValidatorTest {
     @DisplayName("Should throw when genre exceeds 50 characters")
     void genreTooLong() {
         assertThrows(FieldValidationException.class,
-                () -> validator.validate(BookDataProvider.genreTooLong()));
+                () -> validator.validate(BookDataProvider.GENRE_TOO_LONG));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class GenresValidatorTest {
     void multipleGenresOneTooLong() {
         FieldValidationException exception = assertThrows(
                 FieldValidationException.class,
-                () -> validator.validate(BookDataProvider.oneGenreTooLong()));
+                () -> validator.validate(BookDataProvider.ONE_GENRE_TOO_LONG));
 
         assertTrue(exception.getMessage().startsWith(GENRE_TOO_LONG));
     }

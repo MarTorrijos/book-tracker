@@ -2,6 +2,7 @@ package booktracker.unit.service.book;
 
 import booktracker.service.author.AuthorService;
 import booktracker.service.book.BookCrudService;
+import booktracker.testdata.AuthorDataProvider;
 import booktracker.testdata.BookDataProvider;
 import org.bson.types.ObjectId;
 import booktracker.dao.book.BookDao;
@@ -36,8 +37,12 @@ public class BookCrudServiceTest {
 
     @BeforeEach
     void setUp() {
-        book = BookDataProvider.validBook();
-        duplicatedBook = BookDataProvider.duplicatedBook();
+        book = BookDataProvider.createBook(
+                BookDataProvider.DEFAULT_BOOK_TITLE,
+                AuthorDataProvider.validAuthor());
+        duplicatedBook = BookDataProvider.createBook(
+                BookDataProvider.DEFAULT_BOOK_TITLE,
+                AuthorDataProvider.validAuthor());
         author = book.getAuthor();
         id = book.getId();
     }
@@ -45,11 +50,15 @@ public class BookCrudServiceTest {
     @Test
     void save_Success() {
         when(bookDaoMock.bookExistsByTitle(book.getTitle())).thenReturn(false);
+        when(authorServiceMock.findAuthorByFullName(author.getName(), author.getSurname())).thenReturn(null);
+        when(authorServiceMock.saveAuthor(author)).thenReturn(author);
 
         assertDoesNotThrow(() -> service.save(book));
+
         verify(bookDaoMock).bookExistsByTitle(book.getTitle());
-        verify(bookDaoMock).insert(book);
+        verify(authorServiceMock).findAuthorByFullName(author.getName(), author.getSurname());
         verify(authorServiceMock).saveAuthor(author);
+        verify(bookDaoMock).insert(book);
     }
 
     @Test
@@ -66,7 +75,7 @@ public class BookCrudServiceTest {
 
     @Test
     void save_NoAuthor_Fail() {
-        assertThrows(NullPointerException.class, () -> service.save(BookDataProvider.bookWithNoAuthor()));
+        assertThrows(NullPointerException.class, () -> service.save(BookDataProvider.BOOK_WITH_NO_AUTHOR));
     }
 
     @Test

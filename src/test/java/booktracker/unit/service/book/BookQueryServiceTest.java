@@ -29,7 +29,7 @@ public class BookQueryServiceTest {
     @InjectMocks
     private BookQueryService service;
 
-    private final Book book = BookDataProvider.validBook();
+    private final Book book = BookDataProvider.VALID_BOOK;
     private final ObjectId id = book.getId();
     private final String title = book.getTitle();
     private final List<Book> bookList = BookListDataProvider.basicBookList();

@@ -20,7 +20,7 @@ public class TitleValidatorTest {
 
     @Test
     void validTitle() {
-        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validBook().getTitle()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.VALID_BOOK.getTitle()));
     }
 
     @Test
@@ -30,12 +30,12 @@ public class TitleValidatorTest {
 
     @Test
     void emptyTitle() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.emptyString()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.EMPTY_STRING));
     }
 
     @Test
     void titleTooLong() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.titleTooLong()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.TITLE_TOO_LONG));
     }
 
 }

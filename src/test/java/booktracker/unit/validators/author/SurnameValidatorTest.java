@@ -2,6 +2,7 @@ package booktracker.unit.validators.author;
 
 import booktracker.entities.Author;
 import booktracker.exceptions.FieldValidationException;
+import booktracker.testdata.AuthorDataProvider;
 import booktracker.testdata.BookDataProvider;
 import booktracker.validators.implementations.author.AuthorSurnameValidator;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +21,8 @@ public class SurnameValidatorTest {
     @BeforeEach
     void setUp() {
         validator = new AuthorSurnameValidator();
-        validAuthor = BookDataProvider.validAuthor();
-        authorSurnameTooLong = BookDataProvider.authorSurnameTooLong();
+        validAuthor = AuthorDataProvider.validAuthor();
+        authorSurnameTooLong = AuthorDataProvider.authorSurnameTooLong();
     }
 
     @Test
@@ -36,7 +37,7 @@ public class SurnameValidatorTest {
 
     @Test
     void emptyAuthorSurname() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.emptyString()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.EMPTY_STRING));
     }
 
     @Test

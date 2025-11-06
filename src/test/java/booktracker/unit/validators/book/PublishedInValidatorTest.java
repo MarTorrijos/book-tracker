@@ -20,7 +20,7 @@ public class PublishedInValidatorTest {
 
     @Test
     void validPublishedIn() {
-        assertDoesNotThrow(() -> validator.validate(BookDataProvider.validPublishedIn()));
+        assertDoesNotThrow(() -> validator.validate(BookDataProvider.VALID_PUBLISHED_IN));
     }
 
     @Test
@@ -30,12 +30,12 @@ public class PublishedInValidatorTest {
 
     @Test
     void negativePublishedIn() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.negativeNumber()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.NEGATIVE_NUMBER));
     }
 
     @Test
     void futurePublishedIn() {
-        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.futurePublishedIn()));
+        assertThrows(FieldValidationException.class, () -> validator.validate(BookDataProvider.FUTURE_PUBLISHED_IN));
     }
 
 }
