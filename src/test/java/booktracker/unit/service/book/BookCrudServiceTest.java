@@ -1,5 +1,6 @@
 package booktracker.unit.service.book;
 
+import booktracker.exceptions.DuplicatedBookException;
 import booktracker.service.author.AuthorService;
 import booktracker.service.book.BookCrudService;
 import booktracker.testdata.AuthorDataProvider;
@@ -68,7 +69,7 @@ public class BookCrudServiceTest {
         verify(bookDaoMock).insert(book);
 
         when(bookDaoMock.bookExistsByTitle(duplicatedBook.getTitle())).thenReturn(true);
-        assertThrows(IllegalArgumentException.class, () -> service.save(duplicatedBook));
+        assertThrows(DuplicatedBookException.class, () -> service.save(duplicatedBook));
 
         verify(bookDaoMock, times(1)).insert(any());
     }

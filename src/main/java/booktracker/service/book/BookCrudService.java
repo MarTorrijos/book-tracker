@@ -1,5 +1,6 @@
 package booktracker.service.book;
 
+import booktracker.exceptions.DuplicatedBookException;
 import booktracker.service.author.AuthorService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +26,7 @@ public class BookCrudService {
     public void save(Book book) {
         if (bookDao.bookExistsByTitle(book.getTitle())) {
             logger.warn(SAVE_FAIL_DUPLICATED_TITLE_LOG, book.getTitle());
-            throw new IllegalArgumentException("Book with that title already exists.");
+            throw new DuplicatedBookException("Book with that title already exists.");
         }
 
         Author author = authorService.findAuthorByFullName(
