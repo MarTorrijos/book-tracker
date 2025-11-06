@@ -3,6 +3,7 @@ package booktracker.service.author;
 import booktracker.dao.author.AuthorDao;
 import booktracker.entities.Author;
 import booktracker.exceptions.AuthorNotFoundException;
+import booktracker.exceptions.DuplicatedAuthorException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +23,7 @@ public class AuthorService {
     public Author saveAuthor(Author author) {
         if (authorExistsByFullName(author.getName(), author.getSurname())) {
             logger.warn(SAVE_AUTHOR_FAIL_LOG, author);
-            throw new IllegalArgumentException("Author with that name already exists");
+            throw new DuplicatedAuthorException("Author with that name already exists");
         }
 
         authorDao.insert(author);
