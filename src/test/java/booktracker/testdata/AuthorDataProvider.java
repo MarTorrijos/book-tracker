@@ -11,11 +11,11 @@ public class AuthorDataProvider {
     private static final String LONG_AUTHOR_SURNAME = "A".repeat(201);
 
     public static Author validAuthor() {
-        Author author = new Author();
-        author.setId(new ObjectId());
-        author.setName(DEFAULT_AUTHOR_NAME);
-        author.setSurname(DEFAULT_AUTHOR_SURNAME);
-        return author;
+        return Author.builder()
+                .id(new ObjectId())
+                .name(DEFAULT_AUTHOR_NAME)
+                .surname(DEFAULT_AUTHOR_SURNAME)
+                .build();
     }
 
     public static Author authorNameTooLong() {
