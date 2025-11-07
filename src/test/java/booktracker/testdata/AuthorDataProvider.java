@@ -19,17 +19,17 @@ public class AuthorDataProvider {
     }
 
     public static Author authorNameTooLong() {
-        Author author = new Author();
-        author.setId(new ObjectId());
-        author.setName(LONG_AUTHOR_NAME);
-        return author;
+        return Author.builder()
+                .id(new ObjectId())
+                .name(LONG_AUTHOR_NAME)
+                .build();
     }
 
     public static Author authorSurnameTooLong() {
-        Author author = new Author();
-        author.setId(new ObjectId());
-        author.setSurname(LONG_AUTHOR_SURNAME);
-        return author;
+        return Author.builder()
+                .id(new ObjectId())
+                .surname(LONG_AUTHOR_SURNAME)
+                .build();
     }
 
 }
