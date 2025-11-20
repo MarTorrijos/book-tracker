@@ -1,10 +1,15 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'application'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+
+application {
+    mainClass.set('booktracker.BookTracker')
+}
 
 repositories {
     mavenCentral()
@@ -88,5 +93,14 @@ jacocoTestCoverageVerification {
             }
         }
     }
+}
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'booktracker.BookTracker'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
