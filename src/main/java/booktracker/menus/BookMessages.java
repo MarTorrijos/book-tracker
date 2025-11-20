@@ -1,19 +1,15 @@
-package booktracker.cli;
+package booktracker.menus;
 
 public final class BookMessages {
-
-    public BookMessages() {
-        // Created to prevent instantiation
-    }
 
     public static final String SAVE_SUCCESS_MSG =
             "Book saved";
 
     public static final String SAVE_FAIL_MSG =
-            "Failed to saveAuthor book";
+            "Failed to save book";
 
     public static final String SAVE_FAIL_DUPLICATED_TITLE_MSG =
-            "Failed to saveAuthor book. Title already exists";
+            "Failed to save book. Title already exists";
 
     public static final String FIND_FAIL_MSG =
             "Book not found";
